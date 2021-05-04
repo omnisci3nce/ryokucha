@@ -1,4 +1,5 @@
 const std = @import("std");
+const expect = @import("std").testing.expect;
 
 // ---- Maths
 
@@ -24,10 +25,12 @@ const ShaderProgram = struct {
 
     pub fn init(vertex_source: []const u8, frag_source: []const u8) ShaderProgram {
         var self = ShaderProgram{
-            programID: undefined
+            .programID = undefined
         };
+
+        return self;
     }
-}
+};
 
 
 // ---- Application
@@ -51,9 +54,14 @@ const LogLevel = enum {
     TRACE
 };
 
-fn FATAL 
+const log_level_strings = [_][]const u8{"FATAL", "ERROR", "WARN", "INFO", "DEBUG", "TRACE"};
 
-pub fn main() void {
+fn log(level: LogLevel, message: []const u8) !void {
+    const stdout = std.io.getStdOut().writer();
+    try stdout.print("[{s}]: {s}\n", .{log_level_strings[@enumToInt(level)], message});
+}
+
+pub fn main() !void {
     // Setup
     const app_conf = ApplicationConfig{
         .start_pos_x = 0,
@@ -62,8 +70,6 @@ pub fn main() void {
         .start_height = 480,
         .name = "Ryokucha Game Engine"
     };
-
-
-
-    std.debug.print("Hello, {s}!\n", .{"World"});
+    
+    try log(LogLevel.FATAL, "Application crash.");
 }
