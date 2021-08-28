@@ -1,0 +1,53 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "Build Engine",
+            "linux": {
+                "command": "${workspaceFolder}/c/engine/build.sh"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/c/engine"
+            },
+            "problemMatcher": ["$gcc"],
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "Build Testbed",
+            "windows": {
+                "command": "${workspaceFolder}/c/testbed/build.bat"
+            },
+            "linux": {
+                "command": "${workspaceFolder}/c/testbed/build.sh"
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/c/testbed"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "Build Everything",
+            "linux": {
+                "command": "${workspaceFolder}/c/build-all.sh",
+            },
+            "options": {
+                "cwd": "${workspaceFolder}/c/"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
